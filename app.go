@@ -234,6 +234,7 @@ func whoamiHandler(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	log.Printf("%+v", req)
 }
 
 func apiHandler(w http.ResponseWriter, req *http.Request) {

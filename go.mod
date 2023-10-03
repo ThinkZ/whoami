@@ -1,5 +1,5 @@
-module github.com/traefik/whoami
+module whoami
 
 go 1.19
 
-require github.com/gorilla/websocket v1.4.2
+require github.com/gorilla/websocket v1.5.0

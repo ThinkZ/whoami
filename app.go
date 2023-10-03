@@ -113,8 +113,9 @@ func handle(next http.HandlerFunc, verbose bool) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		next(w, r)
 
-		// <remote_IP_address> - [<timestamp>] "<request_method> <request_path> <request_protocol>" -
-		log.Printf("%s - - [%s] \"%s %s %s\" - -", r.RemoteAddr, time.Now().Format("02/Jan/2006:15:04:05 -0700"), r.Method, r.URL.Path, r.Proto)
+		// <remote_IP_address> - - "<request_method> <request_path> <request_protocol>" - -
+		log.Printf("%s-->%s - - \"%s %s %s\" - -", r.RemoteAddr, r.Host, r.Method, r.URL.Path, r.Proto)
+		log.Printf("        HEADER:%s", r.Header)
 	})
 }
 
@@ -234,8 +235,6 @@ func whoamiHandler(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
- 	log.Printf("FROM:%s TO:%s %s %s", req.RemoteAddr, hostname, port, u)
-	log.Printf("%+v", req)
 }
 
 func apiHandler(w http.ResponseWriter, req *http.Request) {
